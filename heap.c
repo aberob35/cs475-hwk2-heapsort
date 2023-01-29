@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include "employee.h"
 #include "heap.h"
-
 /**
  * Sorts a list of n employees in descending order
  *
@@ -18,11 +17,19 @@
 void heapSort(Employee *A, int n)
 {
 	// TODO - BuildHeap on the heap
-
+	buildHeap(A, n);
 	// TODO - while n > 0:
+	while(n > 0){
 	// TODO - swap A[n-1] with A[0], since A[0] is the smallest number.
+		swap(&A[n-1], &A[0]);
 	// TODO - A[n-1] now sorted in place, so decrement n
+		n--;
+		for(int i = 0; i < n; i++){
+		heapify(&A[0], n - 1, MAX_EMPLOYEES);
+	}
+	}
 	// TODO - Heapify the elements from A[0] up to A[n-1] (which leaves the newly sorted element alone)
+	
 }
 
 /**
@@ -36,6 +43,10 @@ void heapSort(Employee *A, int n)
 void buildHeap(Employee *A, int n)
 {
 	// TODO - heapify() every element from A[n/2] down-to A[0]
+	int start = (n/2) - 1;
+	for(int i = start; i >= 0; i--){
+		heapify(A, i, n);
+	}
 }
 
 /**
@@ -48,14 +59,26 @@ void buildHeap(Employee *A, int n)
  */
 void heapify(Employee *A, int i, int n)
 {
+	int smallest = i;
 	// TODO - get index of left child of element i
+	int left = i;
 	// TODO - get index of right child of element i
-
+	int right = i + 1;
 	// TODO - determine which child has a smaller salary. We'll call the index of this
 	//		element: "smaller"
-
 	// TODO - recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
 	//			Then recursively heapify A[smaller].
+	if(left < n &&  A[left].salary < A[smallest].salary){
+		smallest = left; 
+	} 
+	if(right < n && A[right].salary < A[smallest].salary){
+		smallest = right; 
+	}
+	 if(smallest != i){
+		swap(&A[i], &A[smallest]);
+		heapify(A, smallest, n);
+	}
+	
 	// TODO - Continue recursion as long as i is within range AND either right_child and left_child are still within range.
 }
 
@@ -67,6 +90,9 @@ void heapify(Employee *A, int i, int n)
 void swap(Employee *e1, Employee *e2)
 {
 	// TODO
+	Employee temp = *e1;
+	*e1 = *e2;
+	*e2 = temp;
 }
 
 /**
@@ -77,4 +103,12 @@ void swap(Employee *e1, Employee *e2)
 void printList(Employee *A, int n)
 {
 	// TODO
+	for(int i = 4; i >=0 ; i--){
+		printf("[id = %s sal = %d]\n", A[i].name, A[i].salary);
+	}
+}
+void unsortPrint(Employee *A, int n){
+	for(int i = 4; i >=0 ; i--){
+		printf("Name: %s \n Salary: %d \n", A[i].name, A[i].salary);
+	}
 }
