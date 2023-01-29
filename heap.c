@@ -100,6 +100,7 @@ void swap(Employee *e1, Employee *e2)
  * @param	*A	Pointer to the list of employees
  * @param	n	Size of the list
  */
+//Printing greatest to least going down. Greatest to Least sideways looked weird to me.
 void printList(Employee *A, int n)
 {
 	// TODO
