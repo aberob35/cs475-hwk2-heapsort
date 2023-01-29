@@ -4,6 +4,7 @@
  */
 
 #define MAX_NAME_LEN 25
+#define MAX_EMPLOYEES 5
 
 typedef struct Employee
 {
